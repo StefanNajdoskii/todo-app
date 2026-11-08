@@ -1,6 +1,16 @@
 class TodoItem
 {
-    public void MarkDone() { IsDone = true; }
-    public string Title;
-    public bool IsDone;
+public string Title { get; set; }
+public bool IsDone { get; private set; }
+
+public TodoItem(string title)
+{
+Title = title;
+IsDone = false;
+}
+
+public void MarkDone()
+{
+IsDone = true;
+}
 }

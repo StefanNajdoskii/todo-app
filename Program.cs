@@ -5,16 +5,14 @@ while (true)
     Console.WriteLine("1 = Add, 2 = Show, 3 = Remove, 4 = Done, 5 = Quit");
     string choice = Console.ReadLine();
 
+
     if (choice == "1")
     {
-        Console.WriteLine("Enter a task:");
-        string task = Console.ReadLine();
-
-        TodoItem newItem = new TodoItem();
-        newItem.Title = task;
-        tasks.Add(newItem);
-    }
-    else if (choice == "2")
+    Console.WriteLine("Enter a task:");
+    string taskTitle = Console.ReadLine() ?? "";
+    tasks.Add(new TodoItem(taskTitle));
+}
+else if (choice == "2")
     {
         foreach (TodoItem t in tasks)
         {
@@ -46,7 +44,8 @@ while (true)
     else if (choice == "4")
     {
         Console.WriteLine("Which task do you want to mark as done?");
-        string doneName = Console.ReadLine();
+        string doneName = Console.ReadLine()??"";
+
         TodoItem doneItem = tasks.Find(x => x.Title == doneName);
 
         if (doneItem != null)

@@ -1,5 +1,9 @@
 ﻿List<TodoItem> tasks = new List<TodoItem>();
-
+DeadlineItem d = new DeadlineItem("Pay rent", "Friday");
+d.MarkDone();
+ Console.WriteLine(d.Title + " due " + d.DueDate + " done: " + d.IsDone);
+ Console.WriteLine(d.Describe());
+tasks.Add(d);
 while (true)
 {
     Console.WriteLine("1 = Add, 2 = Show, 3 = Remove, 4 = Done, 5 = Quit");
@@ -18,11 +22,11 @@ else if (choice == "2")
         {
             if (t.IsDone)
             {
-                Console.WriteLine("[x] " + t.Title);
+                Console.WriteLine("[x] " +t.Describe ());
             }
             else
             {
-                Console.WriteLine("[ ] " + t.Title);
+                Console.WriteLine("[ ] " + t.Describe());
             }
         }
     }

@@ -1,9 +1,13 @@
 ﻿List<TodoItem> tasks = new List<TodoItem>();
 DeadlineItem d = new DeadlineItem("Pay rent", "Friday");
 d.MarkDone();
+
  Console.WriteLine(d.Title + " due " + d.DueDate + " done: " + d.IsDone);
  Console.WriteLine(d.Describe());
 tasks.Add(d);
+
+IDescribable thing = d;
+Console.WriteLine(thing.Describe());
 while (true)
 {
     Console.WriteLine("1 = Add, 2 = Show, 3 = Remove, 4 = Done, 5 = Quit");

@@ -1,4 +1,4 @@
-class TodoItem
+class TodoItem : IDescribable
 {
 public string Title { get; set; }
 public bool IsDone { get; private set; }

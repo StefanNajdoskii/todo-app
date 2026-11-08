@@ -1,0 +1,4 @@
+interface IDescribable
+{
+string Describe();
+}

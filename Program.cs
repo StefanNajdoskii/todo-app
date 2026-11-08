@@ -1,13 +1,22 @@
-﻿List<TodoItem> tasks = new List<TodoItem>();
-DeadlineItem d = new DeadlineItem("Pay rent", "Friday");
-d.MarkDone();
+﻿using System.Text.Json;
 
- Console.WriteLine(d.Title + " due " + d.DueDate + " done: " + d.IsDone);
- Console.WriteLine(d.Describe());
-tasks.Add(d);
+string filePath = "tasks.json";
 
-IDescribable thing = d;
-Console.WriteLine(thing.Describe());
+List<TodoItem> tasks = new List<TodoItem>();
+
+ if (File.Exists(filePath))
+{
+string json = await File.ReadAllTextAsync(filePath);
+var savedTitles = JsonSerializer.Deserialize<List<string>>(json) ?? new List<string>();
+foreach (string title in savedTitles)
+{
+tasks.Add(new TodoItem(title));
+}
+}
+
+var open = tasks.Where(t => !t.IsDone).ToList();
+Console.WriteLine("Open tasks: " + open.Count);
+
 while (true)
 {
     Console.WriteLine("1 = Add, 2 = Show, 3 = Remove, 4 = Done, 5 = Quit");
@@ -65,10 +74,13 @@ else if (choice == "2")
             Console.WriteLine("Task not found.");
         }
     }
-    else if (choice == "5")
-    {
-        break;
-    }
+else if (choice == "5")
+{
+var titles = tasks.Select(t => t.Title).ToList();
+await File.WriteAllTextAsync(filePath, JsonSerializer.Serialize(titles));
+Console.WriteLine("Saved " + titles.Count + " task(s).");
+break;
+}
     else
     {
         Console.WriteLine("Invalid choice, try again.");
